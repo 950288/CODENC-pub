@@ -48,7 +48,7 @@ for (var i = divElements.length - 1; i > divElements.length - 200; i--) {
 
         // 点击回复按钮
         // console.log(divElement.querySelector(".grenBtn"))
-        // divElement.querySelector(".grenBtn").click();
+        divElement.querySelector(".grenBtn").click();
 
     }
 
