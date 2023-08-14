@@ -33,7 +33,8 @@ ctrl+a,然后输入d,退出当前窗口
 nvcc -V
 sudo apt-get remove --purge nvidia* # 卸载驱动
 ubuntu-drivers devices
-apt install nvidia-driver-470
+ubuntu-drivers autoinstall
+apt install nvidia-driver-535
 nvidia-smi
 conda search cudatoolkit --info
 conda install cudatoolkit=xxx
@@ -46,6 +47,7 @@ python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU')
 python -c "import torch; print(torch.cuda.is_available())"
 python -c "import torch; print(torch.__version__)" 
 from https://download.pytorch.org/whl/torch_stable.html
+https://anaconda.org/pytorch/pytorch/files
 pip3 install https://download.pytorch.org/whl/cu118/torch-2.0.1%2Bcu118-cp311-cp311-win_amd64.whl
 pip3 install torch==2.0.1+cu118 torchvision torchaudio -i https://download.pytorch.org/whl/cu118  
 -i https://pypi.douban.com/simple/ some-package  
