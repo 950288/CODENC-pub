@@ -1,0 +1,19 @@
+If ActivePresentation.CreateVideoStatus <> ppMediaTaskStatusInProgress Then
+ActivePresentation.CreateVideo FileName:=Environ("USERPROFILE") & "\Desktop\1.mp4", _
+DefaultSlideDuration:=0, _
+VertResolution:=2160, _
+FramesPerSecond:=60, _
+Quality:=100
+End If
+
+If ActivePresentation.CreateVideoStatus <> ppMediaTaskStatusInProgress Then
+ActivePresentation.CreateVideo FileName:=Environ("USERPROFILE") & "\Desktop\1.mp4", _
+DefaultSlideDuration:=0, _
+VertResolution:=720, _
+FramesPerSecond:=10, _
+Quality:=50
+End If
+
++33 01 59 06 76 59
+
+2023 IGEM GRAND JAMBORE

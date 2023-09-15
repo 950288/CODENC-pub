@@ -15,6 +15,13 @@ yum install tree
 wget https://repo.anaconda.com/miniconda/Miniconda3-py311_23.5.2-0-Linux-x86_64.sh
 bash Miniconda3-py311_23.5.2-0-Linux-x86_64.sh
 yum install conda
+
+# win 追加环境变量 in cmd
+path=%path%;D:\App\anaconda3\Scripts
+path=%path%;D:\App\anaconda3
+path=%path%;D:\App\anaconda3\Library\bin
+path=%path%;D:\App\anaconda3\Library\mingw-w64\bin
+
 conda update conda
 conda create -n dev python
 conda install git
@@ -36,6 +43,9 @@ ubuntu-drivers devices
 ubuntu-drivers autoinstall
 apt install nvidia-driver-535
 nvidia-smi
+
+conda install cudatoolkit=11.8.0 cudnn=8.8.0.121 -c  https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/win-64/ # 一键安装
+
 conda search cudatoolkit --info
 conda install cudatoolkit=xxx
 conda search cudnn --info
@@ -48,7 +58,9 @@ python -c "import torch; print(torch.cuda.is_available())"
 python -c "import torch; print(torch.__version__)" 
 from https://download.pytorch.org/whl/torch_stable.html
 https://anaconda.org/pytorch/pytorch/files
+https://mirror.sjtu.edu.cn/pytorch-wheels/cu118/?mirror_intel_list(国内强烈推荐)
 pip3 install https://download.pytorch.org/whl/cu118/torch-2.0.1%2Bcu118-cp311-cp311-win_amd64.whl
+or pip3 install https://mirror.sjtu.edu.cn/pytorch-wheels/cu118/torch-2.0.1+cu118-cp311-cp311-win_amd64.whl
 pip3 install torch==2.0.1+cu118 torchvision torchaudio -i https://download.pytorch.org/whl/cu118  
 -i https://pypi.douban.com/simple/ some-package  
 -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
