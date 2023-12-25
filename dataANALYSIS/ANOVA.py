@@ -3,10 +3,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 # 设置中文字体
-plt.rcParams['font.sans-serif'] = ['SimHei']
+# plt.rcParams['font.sans-serif'] = ['SimHei']
 import seaborn as sns
 from scipy.stats import chi2_contingency, f_oneway, pearsonr
 from sklearn.linear_model import LinearRegression
+from matplotlib.ticker import FuncFormatter
 
 # 读取数据
 data = pd.read_csv("heart.csv")
@@ -26,7 +27,7 @@ for feature in categorical_features:
     # 计算卡方值，p值，自由度和期望频数
     chi2, p, dof, expected = chi2_contingency(contingency_table)
     # 打印结果
-    print(f"卡方检验结果：{feature}和{target}之间的卡方值为{chi2:.2f}，p值为{p:.10g}，自由度为{dof}")
+    print(f"卡方检验结果：{feature}和{target}之间的卡方值为{chi2:.2f}，p值为{p:.4g}，自由度为{dof}")
     list.append({'feature': feature, 'chi2': chi2, 'p': p, 'dof': dof})
     # 根据p值判断是否拒绝原假设
     if p < 0.05:
@@ -35,22 +36,25 @@ for feature in categorical_features:
         print(f"结论：不能拒绝原假设，{feature}和{target}之间没有显著关联性")
     print()
 
+def y_update_scale_value(temp, position):
+    return "$10^{{{}}}$".format(temp)
+
 # visualization p in Log Bar
-# reorder the list by p
+colors = ['#D6594C']
 list = sorted(list, key=lambda x: x['p'])
 df = pd.DataFrame(list)
-df['p'] = np.log10(df['p'])
-plt.figure(figsize=(10, 6))
-sns.barplot(x='feature', y='p', data=df)
-plt.xlabel('feature')
-plt.ylabel('p')
-plt.title('p in Log Bar')
-plt.show()
-
-
-
+# print(df['p'])
+df['p'] = [np.log10(x) for x in df['p']]
+plt.figure(figsize=(9, 6))
+sns.barplot(x="feature",y='p', data=df, palette = colors,width=0.5)
+plt.ylabel('P value (log scale)')
+plt.xlabel('')
+plt.gca().yaxis.set_major_formatter(FuncFormatter(y_update_scale_value))
+plt.rc('axes', unicode_minus=False)
+plt.title('Chi-square P value')
 
 # 对每个定量特征和目标变量进行方差分析
+list = []
 for feature in numerical_features:
     # 分组数据
     group1 = data[data[target] == 0][feature]
@@ -59,6 +63,7 @@ for feature in numerical_features:
     F, p = f_oneway(group1, group2)
     # 打印结果
     print(f"方差分析结果：{feature}和{target}之间的F值为{F:.2f}，p值为{p:.4g}")
+    list.append({'feature': feature, 'F': F, 'p': p})
     # 根据p值判断是否拒绝原假设
     if p < 0.05:
         print(f"结论：拒绝原假设，{feature}和{target}之间有显著差异")
@@ -66,35 +71,15 @@ for feature in numerical_features:
         print(f"结论：不能拒绝原假设，{feature}和{target}之间没有显著差异")
     print()
 
-# 对每个定量特征和目标变量进行相关分析或回归分析
-# for feature in numerical_features:
-#     # 计算相关系数和p值
-#     r, p = pearsonr(data[feature], data[target])
-#     # 打印结果
-#     print(f"相关分析结果：{feature}和{target}之间的相关系数为{r:.2f}，p值为{p:.4f}")
-#     # 根据p值判断是否拒绝原假设
-#     if p < 0.05:
-#         print(f"结论：拒绝原假设，{feature}和{target}之间有显著线性关系")
-#         # 进行回归分析
-#         # 定义自变量和因变量
-#         X = data[feature].values.reshape(-1, 1)
-#         y = data[target].values
-#         # 创建线性回归模型
-#         model = LinearRegression()
-#         # 拟合数据
-#         model.fit(X, y)
-#         # 获取回归系数和截距
-#         coef = model.coef_[0]
-#         intercept = model.intercept_
-#         # 打印回归方程
-#         print(f"回归分析结果：{target} = {coef:.2f} * {feature} + {intercept:.2f}")
-#         # 绘制散点图和回归线
-#         plt.scatter(X, y, label="数据点")
-#         plt.plot(X, model.predict(X), color="red", label="回归线")
-#         plt.xlabel(feature)
-#         plt.ylabel(target)
-#         plt.legend()
-#         plt.show()
-#     else:
-#         print(f"结论：不能拒绝原假设，{feature}和{target}之间没有显著线性关系")
-#     print()
+plt.figure(figsize=(9, 6))
+colors = ['#D6594C']
+list = sorted(list, key=lambda x: x['p'])
+df = pd.DataFrame(list)
+print(df['p'])
+df['p'] = [np.log10(x) for x in df['p']]
+sns.barplot(x="feature",y='p', data=df, palette = colors,width=0.5)
+plt.ylabel('P value (log scale)')
+plt.xlabel('')
+plt.gca().yaxis.set_major_formatter(FuncFormatter(y_update_scale_value))
+plt.title('ANOVA P value')
+plt.show()
