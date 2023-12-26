@@ -75,7 +75,7 @@ plt.figure(figsize=(9, 6))
 colors = ['#D6594C']
 list = sorted(list, key=lambda x: x['p'])
 df = pd.DataFrame(list)
-print(df['p'])
+print(df)
 df['p'] = [np.log10(x) for x in df['p']]
 sns.barplot(x="feature",y='p', data=df, palette = colors,width=0.5)
 plt.ylabel('P value (log scale)')

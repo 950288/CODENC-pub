@@ -206,40 +206,40 @@ plt.tight_layout()
 
 # Numerical features vs Categorical features w.r.t Target variable(HeartDisease)
 
-# fig,ax = plt.subplots(nrows = 1,ncols = 3,figsize = (15,5))
-# for i in range(3):
-#     plt.subplot(1,3,i+1)
-#     sns.stripplot(x = 'Sex',y = numerical_features[i],data = data,hue = 'HeartDisease',palette = colors);
-#     plt.legend(['No Heart Disease', 'Heart Disease'])
-#     title = numerical_features[i] + ' vs Sex' 
-#     plt.title(title)
+fig,ax = plt.subplots(nrows = 1,ncols = 3,figsize = (15,5))
+for i in range(3):
+    plt.subplot(1,3,i+1)
+    sns.stripplot(x = 'Sex',y = numerical_features[i],data = data,hue = 'HeartDisease',palette = colors);
+    plt.legend(['No Heart Disease', 'Heart Disease'])
+    title = numerical_features[i] + ' vs Sex' 
+    plt.title(title)
 
-# fig,ax = plt.subplots(nrows = 1,ncols = 2,figsize = (15,5))
-# for i in [-1,-2]:
-#     plt.subplot(1,2,-i)
-#     sns.stripplot(x = 'Sex',y = numerical_features[i],data = data,hue = 'HeartDisease',palette = colors);
-#     plt.legend(['No Heart Disease', 'Heart Disease'])
-#     title = numerical_features[i] + ' vs Sex' 
-#     plt.title(title)
+fig,ax = plt.subplots(nrows = 1,ncols = 2,figsize = (15,5))
+for i in [-1,-2]:
+    plt.subplot(1,2,-i)
+    sns.stripplot(x = 'Sex',y = numerical_features[i],data = data,hue = 'HeartDisease',palette = colors);
+    plt.legend(['No Heart Disease', 'Heart Disease'])
+    title = numerical_features[i] + ' vs Sex' 
+    plt.title(title)
 
 # # plt.show()
 
-# # ChestPainType vs Numerical Features
-# fig,ax = plt.subplots(nrows = 1,ncols = 3,figsize = (15,5))
-# for i in range(3):
-#     plt.subplot(1,3,i+1)
-#     sns.stripplot(x = 'ChestPainType',y = numerical_features[i],data = data,hue = 'HeartDisease',palette = colors);
-#     plt.legend(['No Heart Disease', 'Heart Disease'])
-#     title = numerical_features[i] + ' vs ChestPainType'
-#     plt.title(title)
+# ChestPainType vs Numerical Features
+fig,ax = plt.subplots(nrows = 1,ncols = 3,figsize = (15,5))
+for i in range(3):
+    plt.subplot(1,3,i+1)
+    sns.stripplot(x = 'ChestPainType',y = numerical_features[i],data = data,hue = 'HeartDisease',palette = colors);
+    plt.legend(['No Heart Disease', 'Heart Disease'])
+    title = numerical_features[i] + ' vs ChestPainType'
+    plt.title(title)
 
-# fig,ax = plt.subplots(nrows = 1,ncols = 2,figsize = (15,5))
-# for i in [-1,-2]:
-#     plt.subplot(1,2,-i)
-#     sns.stripplot(x = 'ChestPainType',y = numerical_features[i],data = data,hue = 'HeartDisease',palette = colors);
-#     plt.legend(['No Heart Disease', 'Heart Disease'])
-#     title = numerical_features[i] + ' vs ChestPainType' 
-#     plt.title(title)
+fig,ax = plt.subplots(nrows = 1,ncols = 2,figsize = (15,5))
+for i in [-1,-2]:
+    plt.subplot(1,2,-i)
+    sns.stripplot(x = 'ChestPainType',y = numerical_features[i],data = data,hue = 'HeartDisease',palette = colors);
+    plt.legend(['No Heart Disease', 'Heart Disease'])
+    title = numerical_features[i] + ' vs ChestPainType' 
+    plt.title(title)
 
 # # plt.show()
 

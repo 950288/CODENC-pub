@@ -38,12 +38,17 @@ def model(classifier):
     classifier.fit(x_train,y_train)
     prediction = classifier.predict(x_test)
     cv = RepeatedStratifiedKFold(n_splits = 10,n_repeats = 3,random_state = 1)
-    print("Accuracy : ",'{0:.2%}'.format(accuracy_score(y_test,prediction)))
-    print("Cross Validation Score : ",'{0:.2%}'.format(cross_val_score(classifier,x_train,y_train,cv = cv,scoring = 'roc_auc').mean()))
-    print("ROC_AUC Score : ",'{0:.2%}'.format(roc_auc_score(y_test,prediction)))
-    roc_curve(classifier, x_test,y_test)
-    plt.title('ROC_AUC_Plot')
-    plt.show()
+    print("Accuracy on Test Set : ",'{0:.2%}'.format(accuracy_score(y_test,prediction)))
+    # print("Cross Validation Score : ",'{0:.2%}'.format(cross_val_score(classifier,x_train,y_train,cv = cv,scoring = 'roc_auc').mean()))
+    # print("ROC_AUC Score : ",'{0:.2%}'.format(roc_auc_score(y_test,prediction)))
+    
+    # ROC_AUC Curve
+    # fpr,tpr,thresholds = roc_curve(y_test,prediction)
+    # plt.plot(fpr,tpr,marker = '.',label = 'ROC_AUC')
+    # plt.xlabel('False Positive Rate')
+    # plt.ylabel('True Positive Rate')
+    # plt.title('ROC_AUC_Plot')
+    # plt.show()
 
 def model_evaluation(classifier):
     
@@ -57,6 +62,7 @@ def model_evaluation(classifier):
     sns.heatmap(cm,annot = labels,cmap = colors,fmt ='')
     
     # Classification Report
+    print("Classification Report : ")
     print(classification_report(y_test,classifier.predict(x_test)))
 
 from sklearn.linear_model import LogisticRegression
