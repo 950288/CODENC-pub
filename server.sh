@@ -39,6 +39,7 @@ ctrl+a,然后输入d,退出当前窗口
 # 驱动安装
 nvcc -V
 sudo apt-get remove --purge nvidia* # 卸载驱动
+sudo apt update
 ubuntu-drivers devices
 ubuntu-drivers autoinstall
 apt install nvidia-driver-535
