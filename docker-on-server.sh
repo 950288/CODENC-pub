@@ -13,6 +13,8 @@ nvidia-smi
 
 # install docker
 https://docs.docker.com/engine/install/ubuntu/
+# test docker
+sudo docker run hello-world
 
 # NVIDIA Container Toolkit
 https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
@@ -22,4 +24,7 @@ sudo docker run --rm --gpus all nvidia/cuda:11.4.3-cudnn8-runtime-ubi8 nvidia-sm
 
 # change docker source
 https://cloud.tencent.com/document/product/1207/45596
+
+# reference
+https://blog.csdn.net/qq_39638989/article/details/121275230
 

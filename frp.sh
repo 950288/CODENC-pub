@@ -1,67 +1,37 @@
-wget https://github.com/fatedier/frp/releases/download/v0.51.3/frp_0.51.3_linux_amd64.tar.gz
+wget https://github.com/fatedier/frp/releases/download/v0.54.0/frp_0.54.0_linux_amd64.tar.gz
 tar -zxvf ...
 cd 
-vi frps.ini
-```
-[common]
-# frp监听的端口，默认是7000，可以改成其他的
-bind_port = 7000
-# 授权码，请改成更复杂的
-token = 52010  # 这个token之后在客户端会用到
 
-# frp管理后台端口，请按自己需求更改
-dashboard_port = 7500
-# frp管理后台用户名和密码，请改成自己的
-dashboard_user = admin
-dashboard_pwd = admin
-enable_prometheus = true
-```
-frps.exe -c ./frps.ini
+https://gofrp.org/zh-cn/docs/setup/
 
-
-frpc.exe -c frpc.ini
-```
-[common]
-server_addr = 服务器ip
- # 与frps.ini的bind_port一致
-server_port = 7000
- # 与frps.ini的token一致
-token = 52010
-
-vi frpc.ini 
-# 配置ssh服务
-[ssh]
-type = tcp
-local_ip = 127.0.0.1
-local_port = 22
- # 这个自定义，之后再ssh连接的时候要用
-remote_port = 6000 
+# server
+```vi frps.toml
+bindPort = 7000 # server port
 ```
 
-开机自启
-win + r
-shell:startup
-新建frp.bat
-```
-D:
-cd D:\frp_0.51.3_windows_amd64
-frpc.exe -c frpc.ini
+./frps -c frps.toml
+
+# in Screen
+screen -S frp
+
+
+# client
+```vi frpc.toml
+serverAddr = "x.x.x.x" # ip of server
+serverPort = 7000
+
+[[proxies]]
+name = "test-tcp"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 22
+remotePort = 6000
 ```
 
-for linux
-sudo vim /lib/systemd/system/frps.service
-```
-[Unit]
-Description=Frp Server Service
-After=network.target
+./frpc -c frpc.toml
 
-[Service]
-Type=simple
-User=nobody
-Restart=on-failure
-RestartSec=5s
-ExecStart=/dist/faci/frp_0.51.3_linux_amd64/frpc -c /dist/faci/frp_0.51.3_linux_amd64/frpc.ini
+# auto start
+vi /etc/rc.local
 
-[Install]
-WantedBy=multi-user.target
-```
+# test
+ssh -o Port=6000 root@x.x.x.x
