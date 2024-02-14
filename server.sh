@@ -1,49 +1,13 @@
-cd /etc/yum.repos.d
-cp CentOS-Base.repo CentOS-Base.repo.bak
-wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo
-wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
-wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-vault-6.10.repo
-yum clean all
-yum makecache
+# auto ssh login
+# windows https://blog.csdn.net/qq_45624685/article/details/122631083
+type C:\Users\95028\.ssh\id_rsa.pub | ssh root@xx.xx.xx.xx "cat >> .ssh/authorized_keys"
 
-# sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
-apt-get update
-apt-get install conda
-apt-get install screen
 
-yum install tree
-wget https://repo.anaconda.com/miniconda/Miniconda3-py311_23.5.2-0-Linux-x86_64.sh
-bash Miniconda3-py311_23.5.2-0-Linux-x86_64.sh
-yum install conda
-
-# win 追加环境变量 in cmd
-path=%path%;D:\App\anaconda3\Scripts
-path=%path%;D:\App\anaconda3
-path=%path%;D:\App\anaconda3\Library\bin
-path=%path%;D:\App\anaconda3\Library\mingw-w64\bin
-
-conda update conda
-conda create -n dev python
-conda install git
-
-pip install -r dependencies.txt
-pip install psm
-psm ls
-psm use pypi
-
-yum install -y screen
+# Screen
 screen -ls
 screen -S test
 ctrl+a,然后输入d,退出当前窗口
 
-# 驱动安装
-nvcc -V
-sudo apt-get remove --purge nvidia* # 卸载驱动
-sudo apt update
-ubuntu-drivers devices
-ubuntu-drivers autoinstall
-apt install nvidia-driver-535
-nvidia-smi
 
 conda install cudatoolkit=11.8.0 cudnn=8.8.0.121 -c  https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/win-64/ # 一键安装
 
