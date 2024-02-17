@@ -24,6 +24,7 @@ sudo docker run --rm --gpus all nvidia/cuda:11.4.3-cudnn8-runtime-ubi8 nvidia-sm
 
 # change docker source
 https://cloud.tencent.com/document/product/1207/45596
+https://cr.console.aliyun.com/cn-shenzhen/instances/mirrors
 
 # reference
 https://blog.csdn.net/qq_39638989/article/details/121275230
