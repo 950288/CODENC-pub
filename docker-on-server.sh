@@ -23,6 +23,7 @@ https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install
 sudo docker run --rm --gpus all nvidia/cuda:11.4.3-cudnn8-runtime-ubi8 nvidia-smi
 
 # change docker source
+https://blog.csdn.net/m0_37282062/article/details/115770314
 https://cloud.tencent.com/document/product/1207/45596
 https://cr.console.aliyun.com/cn-shenzhen/instances/mirrors
 
