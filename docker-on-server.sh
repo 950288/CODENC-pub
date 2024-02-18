@@ -1,32 +1,58 @@
-# install driver
+# consider driver has been installed
 
-# for vGPU
-https://help.aliyun.com/zh/egs/user-guide/use-cloud-assistant-to-automatically-install-and-upgrade-grid-drivers?spm=5176.28426678.J_HeJR_wZokYt378dwP-lLl.19.a4dc5181Ioj3kS&scm=20140722.S_help@@%E6%96%87%E6%A1%A3@@2526616.S_BB1@bl+BB2@bl+RQW@ag0+os0.ID_2526616-RL_GPU%E8%99%9A%E6%8B%9F%E5%8C%96-LOC_search~UND~helpdoc~UND~item-OR_ser-V_3-P0_3
+# Install docker using the convenience script https://docs.docker.com/engine/install/ubuntu/
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
 
-# for GPU
-nvcc -V
-sudo apt-get remove --purge nvidia* # 卸载驱动
-sudo apt update
-ubuntu-drivers devices
-ubuntu-drivers autoinstall
-nvidia-smi
 
-# install docker
-https://docs.docker.com/engine/install/ubuntu/
 # test docker
+echo "test docker ..."
 sudo docker run hello-world
 
-# NVIDIA Container Toolkit
-https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+
+# change apt source https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/
+echo "change apt source ..."
+sudo tee /etc/apt/sources.list <<-'EOF'
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+
+deb http://security.ubuntu.com/ubuntu/ jammy-security main restricted universe multiverse
+# deb-src http://security.ubuntu.com/ubuntu/ jammy-security main restricted universe multiverse
+EOF
+
+
+# NVIDIA Container Toolkit https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
+echo "install NVIDIA Container Toolkit ..."
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+sed -i -e '/experimental/ s/^#//g' /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+sudo apt-get update
+
+sudo apt-get install -y nvidia-container-toolkit
 
 # test 
-sudo docker run --rm --gpus all nvidia/cuda:11.4.3-cudnn8-runtime-ubi8 nvidia-smi
+# sudo docker run --rm --gpus all nvidia/cuda:11.4.3-cudnn8-runtime-ubi8 nvidia-smi
 
-# change docker source
-https://blog.csdn.net/m0_37282062/article/details/115770314
-https://cloud.tencent.com/document/product/1207/45596
-https://cr.console.aliyun.com/cn-shenzhen/instances/mirrors
+
+# change docker source https://developer.aliyun.com/article/1113403
+echo "change docker source ..."
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://ckdhnbk9.mirror.aliyuncs.com","http://mirrors.ustc.edu.cn/","http://hub-mirror.c.163.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
 
 # reference
-https://blog.csdn.net/qq_39638989/article/details/121275230
+# https://blog.csdn.net/qq_39638989/article/details/121275230
 

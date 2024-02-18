@@ -1,12 +1,8 @@
-# auto ssh login
-# windows https://blog.csdn.net/qq_45624685/article/details/122631083
-type C:\Users\95028\.ssh\id_rsa.pub | ssh root@xx.xx.xx.xx "cat >> .ssh/authorized_keys"
-
-
 # Screen
 screen -ls
-screen -S test
-ctrl+a,然后输入d,退出当前窗口
+screen -S test # create
+screen -r test # attach
+ctrl+a d # detach
 
 
 conda install cudatoolkit=11.8.0 cudnn=8.8.0.121 -c  https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/win-64/ # 一键安装
