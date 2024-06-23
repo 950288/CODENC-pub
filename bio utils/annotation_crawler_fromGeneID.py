@@ -12,24 +12,24 @@ with open(output_file, 'w') as out_handle:
         while True:
             try:
                 response = requests.get(url)  # 发起GET请求
-                break
+                if response.status_code == 200:
+                    break
+                else:
+                    print(f'Failed to retrieve the page: {response.status_code}')
             except requests.exceptions.SSLError as e:
                 traceback.print_exc()
                 time.sleep(10)
                 continue
 
-        if response.status_code == 200:
-            # Parse the XML response
-            root = ET.fromstring(response.content)
+        # Parse the XML response
+        root = ET.fromstring(response.content)
 
-            # Find the Description element and get its text
-            description = root.find(".//Description").text
-            out_handle.write(f"{GeneID} {description}\n")
-            out_handle.flush()
+        # Find the Description element and get its text
+        description = root.find(".//Description").text
+        out_handle.write(f"{GeneID} {description}\n")
+        out_handle.flush()
 
-            print(f"GeneID: {GeneID}, Description: {description}")
-        else:
-            print(f'Failed to retrieve the page: {response.status_code}')
+        print(f"GeneID: {GeneID}, Description: {description}")
 
 
 
