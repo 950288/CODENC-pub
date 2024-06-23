@@ -1,7 +1,6 @@
 # download rustup from https://www.rust-lang.org/tools/install
 
 # set env CARGO_HOME and RUSTUP_HOME
-
 # run in shell
 set CARGO_HOME D:\AppDEV\rust\.cargo
 set RUSTUP_HOME D:\AppDEV\rust\.rustup

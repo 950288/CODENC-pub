@@ -4,7 +4,6 @@ screen -S test # create
 screen -r test # attach
 ctrl+a d # detach
 
-
 conda install cudatoolkit=11.8.0 cudnn=8.8.0.121 -c  https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/win-64/ # 一键安装
 
 conda search cudatoolkit --info

@@ -1,0 +1,1 @@
+https://hiif.ong/clash/ Ubuntu 下使用 Clash For Windows
