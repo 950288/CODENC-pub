@@ -1,6 +1,7 @@
 # consider driver has been installed
 
 # Install docker using the convenience script https://docs.docker.com/engine/install/ubuntu/
+# 腾讯云 安装 docker https://cloud.tencent.com/document/product/213/46000#C_XgAwZpjht292j2EOU2t
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 
